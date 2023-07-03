@@ -1,9 +1,10 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Home() {
   return (
       <main className="p-8">
-          <section className="text-center space-y-2">
+          <section className="space-y-2 text-center">
               <h1 className="w-full text-3xl font-bold">
                   OCaml - Next - Python
               </h1>
@@ -28,6 +29,9 @@ export default function Home() {
                   integrating Axels code into a website such that it is
                   accessible through the web.
               </p>
+              <Link href="/week-1">
+                  <h3>Week 1 - Pseudocode to Javascript</h3>
+              </Link>
           </section>
       </main>
   );
