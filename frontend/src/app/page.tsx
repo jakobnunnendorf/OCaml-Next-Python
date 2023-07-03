@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-      <main className="p-8">
+      <main className="">
           <section className="space-y-2 text-center">
               <h1 className="w-full text-3xl font-bold">
                   OCaml - Next - Python
@@ -29,9 +29,17 @@ export default function Home() {
                   integrating Axels code into a website such that it is
                   accessible through the web.
               </p>
-              <Link href="/week-1">
-                  <h3>Week 1 - Pseudocode to Javascript</h3>
-              </Link>
+              <ul className="py-4">
+                  <li>
+                      <Link href="/week-1">
+                          <h3 className="underline">
+                              {" "}
+                              <span className="font-bold">Week 1</span>-
+                              Pseudocode to Javascript
+                          </h3>
+                      </Link>
+                  </li>
+              </ul>
           </section>
       </main>
   );
