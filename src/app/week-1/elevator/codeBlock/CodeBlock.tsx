@@ -2,7 +2,7 @@ import React from "react";
 
 export default async function CodeBlock() {
     const res = await fetch(
-        `https://${process.env.VERCEL_URL}api/txt-to-string`
+        `https://${process.env.VERCEL_URL}/api/txt-to-string`
     );
     const pseudoCodeString = await res.json();
     return (
