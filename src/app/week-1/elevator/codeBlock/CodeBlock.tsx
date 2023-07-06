@@ -1,7 +1,7 @@
 import React from "react";
 
 export default async function CodeBlock() {
-    const request = new Request(`/api/txt-to-string`, {
+    const request = new Request(`${process.env.ORIGIN_URL}/api/txt-to-string`, {
         cache: "no-store",
     });
     const res = await fetch(request);
