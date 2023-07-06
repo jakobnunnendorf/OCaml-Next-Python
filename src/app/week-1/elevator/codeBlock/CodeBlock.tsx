@@ -1,9 +1,12 @@
 import React from "react";
 
 export default async function CodeBlock() {
-    const request = new Request(`${process.env.ORIGIN_URL}/api/txt-to-string`, {
-        cache: "no-store",
-    });
+    const request = new Request(
+        `${process.env.NEXT_PUBLIC_URL}/api/txt-to-string`,
+        {
+            cache: "no-store",
+        }
+    );
     const res = await fetch(request);
     const pseudoCodeString = await res.json();
     return (
