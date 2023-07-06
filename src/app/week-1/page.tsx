@@ -1,6 +1,9 @@
 import { Metadata } from 'next'
 import Link from "next/link";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import PseudoCode from "./elevator/codeBlock/PseudoCode";
+import CodeBlock from "./elevator/codeBlock/CodeBlock";
+import Elevator from "./elevator/Elevator/Elevator";
 
 export const metadata = {
     title: "",
@@ -61,10 +64,9 @@ export default function Week1Page() {
                         <span className="text-lg font-bold ">Pseudocode: </span>
                         <span className="">[Authored by Axel]</span>
                     </h4>
-                    <pre className="p-4 text-orange-300 rounded-lg bg-slate-900 w-fit">
-                        {Pseudocode}
-                    </pre>
+                    <PseudoCode CodeBlock={<CodeBlock />} />
                 </div>
+                <Elevator />
             </section>
         </section>
     );
