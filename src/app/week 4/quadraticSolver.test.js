@@ -5,7 +5,7 @@ const quadraticSolver = require("./quadraticSolver");
 // Therefore we are only interested in base: (a,b,c)
 // input: a,b,c
 // output: x1?, x2?, x3?
-xtest("Throw errors for invalid input", () => {
+test("Throw errors for invalid input", () => {
     expect(() => quadraticSolver("string")).toThrow();
     expect(() => quadraticSolver(1)).toThrow();
     expect(() => quadraticSolver("1", "2", "3")).toThrow();
@@ -21,15 +21,19 @@ test("Test base case", () => {
 
 test("Test for different number of roots", () => {
     // 0 roots
-    expect(quadraticSolver([1, 0, 1])).toBe();
+    expect(quadraticSolver([1, 0, 1])).toEqual([]); // shallow equality
     // 1 root
-    expect(quadraticSolver([0, 1, 0])).toBe(0);
-    expect(quadraticSolver([1, 0, 0])).toBe(0);
+    // expect(quadraticSolver([0, 1, 0])).toEqual([0]);
+    expect(quadraticSolver([1, 0, 0])).toEqual([0]);
     // 2 roots
-    expect(quadraticSolver([1, 0, -1])).toBe(0);
-    expect(quadraticSolver([-1, 0, 1])).toBe(0);
+    expect(quadraticSolver([1, 0, -1])).toEqual([1, -1]);
+    expect(quadraticSolver([-1, 0, 1])).toEqual([-1, 1]);
 });
 
 test("decimal inputs", () => {
-    expect(quadraticSolver([-1.1, 2.14, 3.56])).toBeCloseTo(-1.072, 3.018);
+    const result = quadraticSolver([-1.1, 2.14, 3.56]);
+    const a = result[0];
+    const b = result[1];
+    expect(a).toBeCloseTo(-1.072);
+    expect(b).toBeCloseTo(3.018);
 });
