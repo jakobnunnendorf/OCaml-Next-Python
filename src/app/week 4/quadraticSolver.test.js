@@ -1,39 +1,48 @@
+const { describe, it } = require("@jest/globals");
 const quadraticSolver = require("./quadraticSolver");
-// What are the inputs?
-// (a, b, c) * (x^2, x, 1)^T = ax^2 + bx + c
-// variables * base -> base doesnt change
-// Therefore we are only interested in base: (a,b,c)
-// input: a,b,c
-// output: x1?, x2?, x3?
-test("Throw errors for invalid input", () => {
-    expect(() => quadraticSolver("string")).toThrow();
-    expect(() => quadraticSolver(1)).toThrow();
-    expect(() => quadraticSolver("1", "2", "3")).toThrow();
-    expect(() => quadraticSolver(true, "2", 3)).toThrow();
-    expect(() => quadraticSolver(1, 2)).toThrow();
-    expect(() => quadraticSolver(1, 2, 3, 4)).toThrow();
-    expect(() => quadraticSolver(1, 2)).toThrow();
-});
 
-test("Test base case", () => {
-    expect(Object.is(quadraticSolver([0, 0, 0]), []));
-});
+describe("Quadratic Solver Tests", () => {
+    describe("Test for invalid input", () => {
+        it.each([
+            ["string"],
+            [1],
+            ["1", "2", "3"],
+            [true, "2", 3],
+            [1, 2],
+            [1, 2, 3, 4],
+            [1, 2],
+            [0, 0, 0],
+        ])(`Throw errors for invalid input: %s`, (input) => {
+            expect(() => quadraticSolver(input)).toThrow();
+        });
+    });
 
-test("Test for different number of roots", () => {
-    // 0 roots
-    expect(quadraticSolver([1, 0, 1])).toEqual([]); // shallow equality
-    // 1 root
-    // expect(quadraticSolver([0, 1, 0])).toEqual([0]);
-    expect(quadraticSolver([1, 0, 0])).toEqual([0]);
-    // 2 roots
-    expect(quadraticSolver([1, 0, -1])).toEqual([1, -1]);
-    expect(quadraticSolver([-1, 0, 1])).toEqual([-1, 1]);
-});
+    describe("Test for different number of roots", () => {
+        it("Should return an empty array for 0 roots", () => {
+            expect(quadraticSolver([1, 0, 1])).toEqual([]);
+        });
+        it("Should return correct roots for 1 root", () => {
+            expect(quadraticSolver([0, 1, 0])).toEqual([0]);
+            expect(quadraticSolver([1, 0, 0])).toEqual([0]);
+        });
+        it.each([
+            { input: [1, 0, -1], expected: [1, -1] },
+            { input: [-1, 0, 1], expected: [-1, 1] },
+        ])("Should return %p for input %p", ({ input, expected }) => {
+            expect(quadraticSolver(input).sort((a, b) => a - b)).toEqual(
+                expected.sort((a, b) => a - b)
+            );
+        });
+    });
 
-test("decimal inputs", () => {
-    const result = quadraticSolver([-1.1, 2.14, 3.56]);
-    const a = result[0];
-    const b = result[1];
-    expect(a).toBeCloseTo(-1.072);
-    expect(b).toBeCloseTo(3.018);
+    describe("test using decimal inputs", () => {
+        it.each([
+            { input: [1.1, 2.14, 3.56], expected: [-1.072, 3.018] },
+            { input: [3.2, 3.5, -1.2], expected: [-1.368, 0.274] },
+        ])("Should return %p for input %p", ({ input, expected }) => {
+            const resultSorted = quadraticSolver(input).sort((a, b) => a - b);
+            const expectedSorted = expected.sort((a, b) => a - b);
+            expect(resultSorted).toEqual(expectedSorted);
+        });
+    });
 });

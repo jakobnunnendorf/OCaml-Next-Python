@@ -1,22 +1,15 @@
-// -b ± √(b^2 - 4ac)) / 2a
-// pq: x^2 + px + q = 0 => x1/2 = -p/2 ± √(p^2/4 - q)
 function quadraticSolver(coefficientArray) {
-    console.log(coefficientArray.length);
-  if (coefficientArray.length !== 3) {
-      throw new Error("Array must have 3 elements");
-  }
+    if (coefficientArray.length !== 3) {
+        throw new Error("Array must have 3 elements");
+    }
 
-    const a = coefficientArray[0];
-    const b = coefficientArray[1];
-    const c = coefficientArray[2];
+    const [a, b, c] = coefficientArray;
+    if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        throw new Error("Array must contain only numbers");
+    }
 
-    if (
-        // base case
-        a === 0 &&
-        b === 0 &&
-        c === 0
-    ) {
-        return [];
+    if (a === 0 && b === 0 && c === 0) {
+        throw new Error("Infinite solutions");
     }
 
     if (a !== 0) {
@@ -26,21 +19,19 @@ function quadraticSolver(coefficientArray) {
             return [];
         }
         if (discriminant === 0) {
-            const intermediateResult = b / (2 * a);
-            return intermediateResult === 0 ? [0] : [-intermediateResult];
+            return b === 0 ? [0] : [-b / (2 * a)];
         }
         if (discriminant > 0) {
             const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
             const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
             console.log([x1, x2]);
-            return [x1, x2];
+            return [x1, x2].sort();
         }
     } else {
-        return [-c / b];
+        if (b === 0) {
+            return [];
+        } else return c === 0 ? [0] : [-c / b];
     }
 }
-quadraticSolver([0, 0, 0]);
 
 module.exports = quadraticSolver;
-
-// node quadraticSolver.js
