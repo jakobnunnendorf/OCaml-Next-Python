@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import fibonacci from "./fibonacci/fibonacci";
+import Wednesday910 from "./Wednesday910";
 
 export default function Page() {
     const [n, setN] = React.useState(0);
@@ -21,8 +22,10 @@ export default function Page() {
                     return `${element}, `;
                 })}
             </pre>
+            <Wednesday910 />
         </div>
     );
 }
 
 // yarn dev
+// https://o-caml-next-python.vercel.app/
